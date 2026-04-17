@@ -142,8 +142,57 @@ app.get('/api/profiles/:id', (req, res) => {
   }
 });
 
+app.get('/api/profiles', (req, res) => {
+  let profiles = Array.from(profilesById.values());
+
+  const { gender, country_id, age_group } = req.query;
+
+  if (gender) {
+    profiles = profiles.filter(p =>
+      p.gender.toLowerCase() === gender.toString().toLowerCase()
+    );
+  }
+
+  if (country_id) {
+    profiles = profiles.filter(p =>
+      p.country_id.toLowerCase() === country_id.toString().toLowerCase()
+    );
+  }
+
+  if (age_group) {
+    profiles = profiles.filter(p =>
+      p.age_group.toLowerCase() === age_group.toString().toLowerCase()
+    );
+  }
+
+  return res.status(200).json({
+    status: "success",
+    count: profiles.length,
+    data: profiles
+  });
+});
+
+
+
+app.delete('/api/profiles/:id', (req, res) => {
+  const { id } = req.params;
+  const profile = profilesById.get(id);
+  if (!profile) {
+    return res.status(404).json({
+      status: "error",
+      message: "Profile not found"
+    });
+  }
+  profilesById.delete(id);
+  profilesByName.delete(profile.name);
+  return res.status(200).json({
+    status: "success",
+    message: "Profile deleted"
+  });
+});
+
+
 app.listen(PORT, ()=>{
     console.log(`Server is running on port ${PORT}`);
 });
 
-//019d9cbf-b72e-71ac-83ef-c8022790d600
