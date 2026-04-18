@@ -1,7 +1,7 @@
 # persona-api-service
 
 
-A backend service that enriches a user’s name using external APIs, classifies the data, and stores structured profiles and support filtering.
+A backend service that enriches a user’s name using external APIs, classifies the data, and stores structured profiles and support filtering..
 
 ---
 
@@ -26,7 +26,7 @@ A backend service that enriches a user’s name using external APIs, classifies 
 
 - Node.js
 - Express.js
-- UUID v7
+- installed the UUID v7 module
 - Native Fetch API
 - In-memory data store (Map)
 
